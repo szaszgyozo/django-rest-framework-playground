@@ -10,7 +10,8 @@ class UserStatus(models.IntegerChoices):
     INACTIVE = 0
 
 class UserProfile(models.Model):
-    id = models.UUIDField(
+    id = models.CharField(
+        max_length=13,
         primary_key=True, 
         editable=False
     )

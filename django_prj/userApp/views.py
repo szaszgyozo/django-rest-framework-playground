@@ -1,4 +1,4 @@
-from django.http import response
+from rest_framework.response import Response
 from django.shortcuts import render
 from rest_framework.exceptions import AuthenticationFailed
 from userApp.models import UserProfile
@@ -15,23 +15,23 @@ def get_save_delete_user_profile_by_id(request, pk):
     try:
         user = UserProfile.objects.get(pk=pk)
     except UserProfile.DoesNotExist:
-        return response(status=status.HTTP_404_NOT_FOUND)
+        return Response(status=status.HTTP_404_NOT_FOUND)
 
     # get a userprofile
     if request.method == 'GET':
         serializer = UserProfileSerializer(user)
-        return response(serializer.data)
+        return Response(serializer.data)
     # update a userprofile
     if request.method == 'PUT':
         serializer = UserProfileSerializer(user, data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return response(serializer.data, status=status.HTTP_204_NO_CONTENT)
-        return response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return Response(serializer.data, status=status.HTTP_204_NO_CONTENT)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     # delete a single userprofile
     if request.method == 'DELETE':
         user.delete()
-        return response(status=status.HTTP_204_NO_CONTENT)
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 @api_view(["GET"])
