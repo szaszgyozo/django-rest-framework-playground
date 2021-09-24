@@ -1,12 +1,10 @@
 
 from django.db import models
-
 from django.contrib.auth.models import User
 from django.db.models.deletion import CASCADE
-from django.db.models.fields import IntegerField
 
 class CarOwner(models.Model):
-    user = models.ForeignKey(
+    owner = models.ForeignKey(
         User,
         on_delete=CASCADE,
         blank=False,
@@ -23,12 +21,11 @@ class Car(models.Model):
         blank=False
     )
 
-    owner = models.OneToOneField(
+    owner = models.ForeignKey(
         CarOwner,
-        on_delete=models.RESTRICT,
+        on_delete=models.CASCADE,
+        related_name='cars',
         default=None,
         null=False,
         blank=False
     )
-
-
