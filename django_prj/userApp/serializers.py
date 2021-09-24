@@ -18,8 +18,4 @@ class ExtendedUserProfileSerializer(serializers.ModelSerializer):
         model = UserProfile
         fields = [ 'phone_nr', 'age', 'status', 'user']
 
-class AbcSerialzerr(serializers.ModelSerializer):
-    class Meta:
-        model = UserProfile
-        fields = ['phone_nr', 'age', 'status', 'user_id']
         
